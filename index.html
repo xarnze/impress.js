@@ -9,19 +9,22 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>Markdown in impress.js | by Henrik Ingo @henrikingo</title>
+    <title>Node.js Server with Express.js | by Aaron Hutchinson</title>
     
-    <meta name="description" content="Authoring impress.js presentations in Markdown" />
-    <meta name="author" content="Henrik Ingo" />
-    <link rel="stylesheet" href="../../extras/highlight/styles/github.css">
+    <meta name="description" content="Node.js Server with Express.js" />
+    <meta name="author" content="Aaron Hutchinson" />
+    <link rel="stylesheet" href="../../extras/highlight/styles/monokai-sublime.css">
 
-        
-    <!--
-        Styles specific for this example presentation. 
-    -->
     <link href="css/markdown-slides.css" rel="stylesheet" />
     <link href="css/devopsy.css" rel="stylesheet" />
     <link href="css/effects.css" rel="stylesheet" />
+
+    <style type="text/css">
+        .hljs {
+            font-size: 1em;
+            border-radius: .2em;
+        }
+    </style>
     
 </head>
 
@@ -40,55 +43,157 @@
 
 
 <div id="into" class="step slide markdown" data-rotate="-85" data-x="2000" data-y="2000" data-z="1000" data-scale="4">
-# Express.js
+# Agenda
   
-* This slide sets its own `rotate`, `x`, `y`, and even `z` coordinates
-* Note that the Mother Teresa slide earlier was pimped with some custom CSS, all the while
-  the content was written in simple Markdown.
-</div>
-
-<script type="text/javascript">
-var enableBwCss = function(){
-    disableDevopsCss();
-    disableEffectsCss();
-};
-
-var enableDevopsCss = function(){
-    document.body.classList.add("devopsy");
-    disableEffectsCss();
-};
-
-var disableDevopsCss = function(){
-    document.body.classList.remove("devopsy");
-};
-
-var enableEffectsCss = function(){
-    document.body.classList.add("effects");
-    disableDevopsCss();
-};
-
-var disableEffectsCss = function(){
-    document.body.classList.remove("effects");
-};
-</script>
-
-
-<div id="js-slide" class="step slide" data-rotate="0" data-x="4000" data-y="5000">
-<h1>CSS &amp; JavaScript magic</h1>
-
-<p>Just to emphasize my point, this last slide allows you to use a JavaScript powered menu to
-toggle the CSS style:</p>
-
-<p><a href="#" onclick="enableBwCss();" class="css-menu-bw">Black &amp; white</a>, 
-<a href="#" onclick="enableDevopsCss();" class="css-menu-devopsy">Devopsy</a>, 
-<a href="#" onclick="enableEffectsCss();" class="css-menu-effects">Effects overload</a></p>
-
-<p>Simplicity of Markdown married with full power of Impress.js!</p>
+* Node.js basics
+* Intro to Express.js
+* Serving static files with Express.js
+* REST basics
+* Simple REST API endpoint
 
 </div>
 
+<div id="njs-title-slide" class="step slide title markdown" data-rotate="0" data-x="6000" data-y="5000" data-z="500">
+# Node.js basics
+</div>
 
-<div id="overview" class="step" data-x="5000" data-y="4000" data-scale="10" style="pointer-events: none;" data-rotate="5">
+<div id="njs-slide-1" class="step slide" data-rotate="0" data-x="6000" data-y="5500" data-z="500">
+<h1>Getting started</h1>
+
+Download & Install <a href="https://nodejs.org/en/">Node.js</a> <img src="https://nodejs.org/static/images/logos/nodejs-new-pantone-black.png">
+</div>
+
+<div id="njs-slide-1-1" class="step slide markdown" data-rotate="0" data-x="7500" data-y="5500" data-z="500">
+# Node.js
+
+Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine.
+
+As an asynchronous event driven JavaScript runtime, Node is designed to build scalable network applications.
+
+</div>
+
+<div id="njs-slide-2" class="step slide" data-rotate="0" data-x="6000" data-y="6000" data-z="500">
+<h1>Create a new <code>Node.js</code> project</h1>
+
+<pre><code class="shell">$ mkdir myapp
+$ cd myapp
+$ npm init
+$ touch index.js
+</code></pre>
+</div>
+
+<div id="njs-title-3" class="step slide markdown" data-rotate="0" data-x="6000" data-y="6500" data-z="500">
+# npm
+
+npm is the world’s largest software registry and package manager for Node.js. Open source developers from every continent use npm to share and borrow packages, and many organizations use npm to manage private development as well.
+
+</div>
+
+<div id="njs-title-4" class="step slide markdown" data-rotate="0" data-x="6000" data-y="7000" data-z="500">
+# npm init
+
+Initilizes a node.js project with a `package.json` file this stores the project dependencies allowing the project to be installed in a repeatable way with documented and versioned dependencies.
+
+</div>
+
+<div id="ejs-slide-title" class="step slide title" data-rotate="0" data-x="-1000" data-y="0" data-z="500">
+<h1>Intro to Express.js</h1>
+
+</div>
+
+<div id="ejs-slide-1" class="step slide" data-rotate="0" data-x="-1000" data-y="500" data-z="500">
+<h1>Install Express.js</h1>
+
+<pre><code class="shell">$ npm install express --save</code></pre>
+
+</div>
+
+<div id="ejs-slide-1-1" class="step slide markdown" data-rotate="0" data-x="0" data-y="500" data-z="500">
+# Express.js
+
+Express is a minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications.
+
+</div>
+
+<div id="ejs-slide-2" class="step slide" data-rotate="0" data-x="-1000" data-y="1000" data-z="500">
+<h1>(Very) Basic Express.js app</h1>
+
+<pre><code class="js">var express = require('express')
+var app = express()
+
+// respond with "hello world" when a GET request is made to the homepage
+app.get('/', function (req, res) {
+  res.send('hello world')
+})
+app.listen(3000);
+</code></pre>
+
+</div>
+
+<div id="ejs-slide-3" class="step slide" data-rotate="90" data-x="-1000" data-y="1800" data-z="500">
+<h1>Running your app</h1>
+
+<pre><code class="js">$ npm start</code></pre>
+
+Browse to <code>http://localhost:3000/</code>
+
+</div>
+
+<div id="ejssf-slide-title" class="step slide title markdown" data-rotate="90" data-x="-1000" data-y="3300" data-z="500">
+# Serving static files
+
+</div>
+
+<div id="ejssf-slide-1" class="step slide" data-rotate="180" data-x="-1500" data-y="3300" data-z="500">
+<h1>Serving a single file</h1>
+
+<pre><code class="js">//...
+app.get('/file', function (req, res) {
+  res.sendFile(path.join(__dirname,
+    "/test.html"));
+})
+//...</code></pre>
+
+</div>
+
+<div id="ejssf-slide-2" class="step slide" data-rotate="180" data-x="-2500" data-y="3300" data-z="500">
+<h1>Serving a all files in a folder</h1>
+
+<pre><code class="js">//...
+app.use(express.static('public'))
+//...</code></pre>
+
+</div>
+
+
+<div id="ejssf-slide-3" class="step slide" data-rotate="180" data-x="-3500" data-y="3300" data-z="500">
+<h1>Force a file download</h1>
+
+<pre><code class="js">//...
+app.get('/download', function (req, res) {
+  res.download(path.join(__dirname
+    , "/download.zip"));
+})
+//...</code></pre>
+
+</div>
+
+<div id="rest-slide" class="step slide markdown" data-rotate="-90" data-x="4000" data-y="1000" data-z="1000">
+# REST
+
+RESTful (representational state transfer) API (application programming interface) DLs (description languages) are formal languages designed to provide a structured description of a RESTful web API that is useful both to a human and for automated machine processing
+
+</div>
+
+<div id="rest-api-slide" class="step slide markdown" data-rotate="0" data-x="4000" data-y="2000" data-z="1000">
+# REST API
+
+
+
+</div>
+
+
+<div id="overview" class="step" data-x="4000" data-y="4000" data-scale="10" style="pointer-events: none;" data-rotate="5">
 </div>
 
 </div>
